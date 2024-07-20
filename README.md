@@ -13,7 +13,7 @@ March-April 2024
 - **Client-Server Architecture**: Efficient communication between client and server for real-time interactions.
 - **STM Board Integration**: Utilizes STM microcontroller for audio recording.
 - **UART Communication**: Ensures reliable data transmission between components.
-- **Speech-to-Text Conversion**: Converts recorded audio into text using state-of-the-art algorithms.
+- **Speech-to-Text Conversion**: Converts recorded audio into text using speech-to-text model.
 - **WiFi Modules**: Enables wireless transmission of queries to the server.
 - **Fine-Tuned LLM**: Processes queries and generates appropriate responses.
 - **Text-to-Speech Conversion**: Converts text responses back to synthesized audio.
