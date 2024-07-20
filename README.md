@@ -78,8 +78,8 @@ March-April 2024
 2. **Power On the STM Board**:
   - Ensure all connections are secure and power on the STM board.
 3. **Interact with the Chatbot**:
-  - Speak into the microphone. The STM board will record your query and transmit it to the server.
-  - The server will process the query and send back a response, which will be played back through the speaker.
+  - Speak into the microphone. The STM board will enable recording of your query which will be processed as text and transmitted to the server via wifi module.
+  - The server will process the query and send back a text response, which will be processed as audio and played back through the speaker.
     
 ## Example Interaction
 **User**: "What is the weather like today?"
