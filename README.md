@@ -75,3 +75,14 @@ March-April 2024
 1. **Start the Server**:
    ```sh
    python server.py
+2. **Power On the STM Board**:
+  - Ensure all connections are secure and power on the STM board.
+3. **Interact with the Chatbot**:
+  - Speak into the microphone. The STM board will record your query and transmit it to the server.
+  - The server will process the query and send back a response, which will be played back through the speaker.
+    
+## Example Interaction
+**User**: "What is the weather like today?"
+**Chatbot**: "Hey there! Today is a bright and sunny day, perfect for playing outside! The temperature will be around 25 degrees Celsius, so don't forget to wear your sunscreen and stay hydrated!"
+
+   
