@@ -9,7 +9,7 @@ from openai import OpenAI
 from gtts import gTTS 
 import shutil
 import openai
-client = OpenAI(api_key="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")
+client = OpenAI(api_key="")
 
 @cl.on_message
 async def main(message: cl.Message):
