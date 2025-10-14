@@ -1,88 +1,227 @@
 # AI Chatbot for Kids with LLM
 
-## Project Overview
-This project involves the development of an AI chatbot designed for kids, utilizing a client-server architecture. The system integrates an STM board and UART communication for audio recording, implements speech-to-text conversion, and uses WiFi modules to transmit queries to a server. The server hosts a fine-tuned Language Learning Model (LLM) which processes the queries and sends back responses, which are then converted to synthesized audio.
+An interactive AI chatbot designed for children, featuring embedded hardware integration with STM board, UART communication, and OpenAI's GPT-3.5 for generating kid-friendly responses.
 
-## Mentor
-Prof. Jhuma Saha
+## 📋 Table of Contents
+- [Project Overview](#project-overview)
+- [Features](#features)
+- [Project Structure](#project-structure)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Usage](#usage)
+- [System Architecture](#system-architecture)
+- [Hardware Components](#hardware-components)
+- [Example Interaction](#example-interaction)
+- [Contributing](#contributing)
+- [Acknowledgments](#acknowledgments)
 
-## Project Duration
-March-April 2024
+## 🎯 Project Overview
 
-## Features
-- **Client-Server Architecture**: Efficient communication between client and server for real-time interactions.
-- **STM Board Integration**: Utilizes STM microcontroller for audio recording.
-- **UART Communication**: Ensures reliable data transmission between components.
-- **Speech-to-Text Conversion**: Converts recorded audio into text using speech-to-text model.
-- **WiFi Modules**: Enables wireless transmission of queries to the server.
-- **Fine-Tuned LLM**: Processes queries and generates appropriate responses.
-- **Text-to-Speech Conversion**: Converts text responses back to synthesized audio.
+This project implements an AI chatbot system specifically designed for kids, utilizing a client-server architecture. The system integrates:
+- **STM32 microcontroller** for audio recording
+- **UART communication** for reliable data transmission
+- **WiFi modules (ESP8266)** for wireless connectivity
+- **OpenAI's Whisper** for speech-to-text conversion
+- **GPT-3.5-turbo** for generating appropriate, educational responses
+- **Google Text-to-Speech (gTTS)** for voice synthesis
 
-## Components
-1. **STM Board**: Microcontroller board for handling audio recording.
-2. **UART Communication**: Used for data transfer between STM board and other modules.
-3. **WiFi Module**: ESP8266 or similar module for wireless communication.
-4. **Server**: Hosts the fine-tuned Language Learning Model (LLM).
-5. **LLM**: Fine-tuned for processing and generating responses to queries.
-6. **Audio Processing**: Modules for speech-to-text and text-to-speech conversion.
+**Mentor**: Prof. Jhuma Saha  
+**Project Duration**: March-April 2024
 
-## System Architecture
-1. **Audio Recording**: The STM board records the user's speech via a microphone.
-2. **Data Transmission**: The recorded audio data is transmitted to a processing unit using UART communication.
-3. **Speech-to-Text**: The audio data is converted into text using speech-to-text algorithms.
-4. **WiFi Transmission**: The text query is sent to the server over WiFi.
-5. **Query Processing**: The server, equipped with a fine-tuned LLM, processes the text query.
-6. **Response Generation**: The LLM generates a suitable response to the query.
-7. **Text-to-Speech**: The response text is converted back into synthesized audio.
-8. **Audio Playback**: The audio response is played back to the user.
+## ✨ Features
 
-## Installation and Setup
+- 🎤 **Real-time Audio Processing**: Records and processes audio from microphone
+- 🔊 **Speech-to-Text**: Converts spoken queries to text using OpenAI Whisper
+- 🤖 **AI-Powered Responses**: Generates kid-friendly, educational responses
+- 📡 **Wireless Communication**: ESP8266-based WiFi connectivity
+- 🔌 **UART Integration**: Reliable serial communication with STM board
+- 🌐 **Web Interface**: Chainlit-based interactive web UI
+- 🔒 **Secure Configuration**: Environment-based API key management
 
-### Hardware Requirements
-- STM Board (e.g., STM32)
-- UART Interface
-- WiFi Module (e.g., ESP8266)
-- Microphone and Speaker
-- Power Supply
+## 📁 Project Structure
 
-### Software Requirements
-- Python 3.x
-- Speech-to-Text Conversion Library (e.g., Google Speech Recognition API)
-- Text-to-Speech Conversion Library (e.g., gTTS)
-- Server with a fine-tuned LLM (e.g., Flask, FastAPI)
-- Firmware for STM board (e.g., STM32CubeIDE)
+```
+AI-Chatbot-for-Kids-with-LLM/
+├── src/
+│   ├── __init__.py
+│   ├── client/
+│   │   ├── __init__.py
+│   │   └── stm_client.py          # STM board client implementation
+│   └── server/
+│       ├── __init__.py
+│       ├── chatbot_server.py      # LLM query processing server
+│       └── web_interface.py       # Chainlit web interface
+├── config/
+│   └── wifi.conf.example          # WiFi configuration template
+├── docs/
+│   └── architecture.md            # Detailed system architecture
+├── .env.example                   # Environment variables template
+├── .gitignore                     # Git ignore rules
+├── requirements.txt               # Python dependencies
+└── README.md                      # Project documentation
+```
 
-### Setup Instructions
-1. **Hardware Setup**:
-   - Connect the microphone to the STM board for audio input.
-   - Set up UART communication between the STM board and the processing unit.
-   - Connect the WiFi module to the STM board.
-   - Connect the speaker for audio output.
+## 🚀 Installation
 
-2. **Software Setup**:
-   - Install required Python libraries:
-     ```sh
-     pip install Flask fastapi google-speech google-text-to-speech
-     ```
-   - Set up the server with the fine-tuned LLM.
-   - Deploy the speech-to-text and text-to-speech conversion services.
+### Prerequisites
 
-3. **Firmware Deployment**:
-   - Write and deploy firmware for the STM board to handle audio recording and UART communication using STM32CubeIDE.
-   - Ensure the STM board can communicate with the WiFi module for transmitting data.
+- Python 3.8 or higher
+- STM32 board with UART support
+- ESP8266 WiFi module
+- Microphone and speaker
+- OpenAI API key
 
-## Usage
-1. **Start the Server**:
-   ```sh
-   python server.py
-2. **Power On the STM Board**:
-  - Ensure all connections are secure and power on the STM board.
-3. **Interact with the Chatbot**:
-  - Speak into the microphone. The STM board will enable recording of your query which will be processed as text and transmitted to the server via wifi module.
-  - The server will process the query and send back a text response, which will be processed as audio and played back through the speaker.
-    
-## Example Interaction
-**User**: "What is the weather like today?"
-**Chatbot**: "Hey there! Today is a bright and sunny day, perfect for playing outside! The temperature will be around 25 degrees Celsius, so don't forget to wear your sunscreen and stay hydrated!"
+### Software Setup
 
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/ATHARVA-TIWARI1234/AI-Chatbot-for-Kids-with-LLM.git
+   cd AI-Chatbot-for-Kids-with-LLM
+   ```
+
+2. **Create a virtual environment (recommended)**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+3. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+## ⚙️ Configuration
+
+1. **Set up environment variables**
+   ```bash
+   cp .env.example .env
+   ```
    
+   Edit `.env` and add your configuration:
+   ```env
+   OPENAI_API_KEY=your_actual_api_key_here
+   SERIAL_PORT=COM9  # or /dev/ttyUSB0 on Linux
+   BAUD_RATE=115200
+   WIFI_URL=http://192.168.11.2/
+   RECORD_SECONDS=10
+   SAMPLE_RATE=44100
+   ```
+
+2. **Configure WiFi (optional)**
+   ```bash
+   cp config/wifi.conf.example config/wifi.conf
+   ```
+   Edit `config/wifi.conf` with your WiFi credentials.
+
+## 🎮 Usage
+
+### Running the STM Client
+
+For embedded hardware with STM board:
+
+```bash
+python src/client/stm_client.py
+```
+
+This will:
+1. Wait for trigger signal from STM board
+2. Record audio when triggered
+3. Transcribe audio to text
+4. Send transcription via UART
+
+### Running the Chatbot Server
+
+For processing queries received via WiFi:
+
+```bash
+python src/server/chatbot_server.py
+```
+
+This will:
+1. Fetch query from WiFi module
+2. Process with GPT-3.5
+3. Generate kid-friendly response
+4. Save response for transmission
+
+### Running the Web Interface
+
+For web-based interaction:
+
+```bash
+chainlit run src/server/web_interface.py
+```
+
+Then open your browser to `http://localhost:8000` and upload audio files for processing.
+
+## 🏗️ System Architecture
+
+```
+Microphone → STM Board → UART → Processing Unit
+                                      ↓
+                               Speech-to-Text
+                                      ↓
+                               WiFi Module (ESP8266)
+                                      ↓
+                              Server (GPT-3.5)
+                                      ↓
+                               Response Generation
+                                      ↓
+                               Text-to-Speech
+                                      ↓
+                                  Speaker
+```
+
+For detailed architecture information, see [docs/architecture.md](docs/architecture.md).
+
+## 🔧 Hardware Components
+
+| Component | Description | Purpose |
+|-----------|-------------|---------|
+| STM32 Board | Microcontroller | Audio recording and UART communication |
+| ESP8266 | WiFi Module | Wireless data transmission |
+| Microphone | Audio Input | Captures user speech |
+| Speaker | Audio Output | Plays synthesized responses |
+| UART Interface | Serial Communication | Data transfer between components |
+
+### Hardware Setup
+
+1. Connect microphone to STM board audio input
+2. Set up UART connection between STM board and processing unit
+3. Connect ESP8266 WiFi module to the system
+4. Connect speaker for audio output
+5. Ensure proper power supply to all components
+
+## 💬 Example Interaction
+
+**User**: *"What is the largest animal on Earth?"*
+
+**Chatbot**: *"Hey there! The largest animal on Earth is the blue whale! These magnificent creatures can grow up to 100 feet long and weigh as much as 200 tons - that's like 33 elephants! They live in the ocean and eat tiny creatures called krill. Isn't that amazing?"*
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit issues or pull requests.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is part of an academic research project.
+
+## 🙏 Acknowledgments
+
+- **Mentor**: Prof. Jhuma Saha
+- **Institution**: IIT Gandhinagar
+- **Duration**: March-April 2024
+- **Technologies**: OpenAI (Whisper, GPT-3.5), Python, STM32, ESP8266
+
+## 📧 Contact
+
+For questions or collaboration opportunities, please open an issue on GitHub.
+
+---
+
+**Note**: Remember to never commit your `.env` file or any files containing API keys or sensitive credentials to version control.
