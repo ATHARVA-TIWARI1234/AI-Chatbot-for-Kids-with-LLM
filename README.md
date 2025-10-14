@@ -283,7 +283,3 @@ This project is part of an academic research project.
 ## Contact
 
 For questions or collaboration opportunities, please open an issue on GitHub.
-
----
-
-**Note**: Remember to never commit your `.env` file or any files containing API keys or sensitive credentials to version control.
